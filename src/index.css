@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Raleway:wght@500;600;700&display=swap');
+@import 'tailwindcss';
+
+@plugin 'daisyui' {
+  themes: false;
+}
+
+@plugin 'daisyui/theme' {
+  name: 'faridia';
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: #ffffff;
+  --color-base-200: #f5f1f7;
+  --color-base-300: #d9cde0;
+  --color-base-content: #201e21;
+
+  --color-primary: #83608f;
+  --color-primary-content: #ffffff;
+  --color-secondary: #413047;
+  --color-secondary-content: #ffffff;
+  --color-accent: #2d8d7a;
+  --color-accent-content: #ffffff;
+  --color-neutral: #312435;
+  --color-neutral-content: #ffffff;
+
+  --color-info: #1f5f99;
+  --color-info-content: #ffffff;
+  --color-success: #1f7a53;
+  --color-success-content: #ffffff;
+  --color-warning: #f2c94c;
+  --color-warning-content: #3d2f00;
+  --color-error: #b3261e;
+  --color-error-content: #ffffff;
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@theme {
+  --font-heading: 'Raleway', system-ui, sans-serif;
+  --font-body: 'Open Sans', system-ui, sans-serif;
+
+  --color-majesty-100: #f5f1f7;
+  --color-majesty-200: #ece4ef;
+  --color-majesty-300: #bfa1c9;
+  --color-majesty-400: #a479b3;
+  --color-majesty-500: #83608f;
+  --color-majesty-600: #413047;
+  --color-majesty-700: #312435;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+    color: var(--color-base-content);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
