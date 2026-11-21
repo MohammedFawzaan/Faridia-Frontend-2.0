@@ -2,23 +2,14 @@ import type { ReactNode } from 'react'
 
 interface CardProps {
   title?: string
-  description?: string
   children: ReactNode
-  className?: string
 }
 
-export function Card({ title, description, children, className = '' }: CardProps) {
+export function Card({ title, children }: CardProps) {
   return (
-    <section className={`card w-full border border-base-300 bg-base-100 shadow-md ${className}`}>
-      <div className="card-body gap-4">
-        {(title || description) && (
-          <header>
-            {title && <h2 className="text-2xl text-secondary">{title}</h2>}
-            {description && <p className="mt-1 text-sm">{description}</p>}
-          </header>
-        )}
-        {children}
-      </div>
+    <section className="sm:rounded-box sm:border sm:border-base-300 sm:bg-base-100 sm:p-4">
+      {title && <h2 className="mb-3 text-xl text-secondary">{title}</h2>}
+      {children}
     </section>
   )
 }

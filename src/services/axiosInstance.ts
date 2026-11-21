@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { ApiSuccess } from '@/types/api'
+import type { ApiSuccess, Page } from '@/types/api'
 import { toApiError } from './apiError'
 
 interface AxiosHandlers {
@@ -34,3 +34,8 @@ axiosInstance.interceptors.response.use(
 )
 
 export const responseData = <T>(response: { data: ApiSuccess<T> }): T => response.data.data
+
+export const responsePage = <T>(response: { data: ApiSuccess<T[]> }): Page<T> => ({
+  items: response.data.data,
+  meta: response.data.meta ?? { page: 1, limit: response.data.data.length, total: response.data.data.length, totalPages: 1 },
+})

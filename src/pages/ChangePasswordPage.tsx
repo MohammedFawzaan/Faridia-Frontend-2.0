@@ -2,7 +2,7 @@ import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Alert } from '@/components/ui/Alert'
 import { Button } from '@/components/ui/Button'
-import { Card } from '@/components/ui/Card'
+import { Section } from '@/components/ui/Section'
 import { PasswordField } from '@/components/ui/PasswordField'
 import { useOnlineStatus } from '@/hooks/useOnlineStatus'
 import { changePasswordSchema, type ChangePasswordValues } from '@/schemas/auth'
@@ -57,7 +57,7 @@ export default function ChangePasswordPage() {
   }
 
   return (
-    <Card title="Set a new password" description="Choose a password you will remember. It protects patient information.">
+    <Section title="Set a new password" description="Choose a password you will remember. It protects patient information.">
       <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
         {forced && (
           <Alert kind="info" title="Password change required">
@@ -109,6 +109,6 @@ export default function ChangePasswordPage() {
           {forced ? 'Sign out' : 'Cancel'}
         </Button>
       </form>
-    </Card>
+    </Section>
   )
 }

@@ -5,6 +5,11 @@ export interface PageMeta {
   totalPages: number
 }
 
+export interface Page<T> {
+  items: T[]
+  meta: PageMeta
+}
+
 export interface ApiSuccess<T> {
   success: true
   message: string
@@ -26,3 +31,5 @@ export interface ApiFailure {
 }
 
 export type FieldErrors = Record<string, string>
+
+export type SortOrder = 'asc' | 'desc'

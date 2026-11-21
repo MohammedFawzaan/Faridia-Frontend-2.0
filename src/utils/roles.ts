@@ -18,3 +18,6 @@ export const ROLE_LABELS: Record<UserRole, string> = {
   labadmin: 'Lab admin',
   labray: 'Lab (X-ray)',
 }
+
+export const MANAGE_USERS_ROLES: UserRole[] = ['Admin', 'superadmin', 'it']
+export const PATIENT_ROLES: UserRole[] = ['reception', 'Admin', 'superadmin']

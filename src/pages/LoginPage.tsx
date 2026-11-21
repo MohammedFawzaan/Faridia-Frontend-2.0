@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { Alert } from '@/components/ui/Alert'
 import { Button } from '@/components/ui/Button'
-import { Card } from '@/components/ui/Card'
+import { Section } from '@/components/ui/Section'
 import { PasswordField } from '@/components/ui/PasswordField'
 import { TextField } from '@/components/ui/TextField'
 import { useOnlineStatus } from '@/hooks/useOnlineStatus'
@@ -55,7 +55,7 @@ export default function LoginPage() {
   }
 
   return (
-    <Card title="Sign in" description="Use your registered mobile number to continue.">
+    <Section title="Sign in" description="Use your registered mobile number to continue.">
       <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
         {failure && (
           <Alert kind="error" title="Could not sign in">
@@ -96,6 +96,6 @@ export default function LoginPage() {
         </Button>
         {!online && <p className="text-center text-sm font-medium text-error">You are offline. Connect to the internet to sign in.</p>}
       </form>
-    </Card>
+    </Section>
   )
 }

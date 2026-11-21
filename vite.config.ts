@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: { '@': path.resolve(import.meta.dirname, 'src') },
+    dedupe: ['react', 'react-dom'],
   },
   server: {
     port: 5174,
