@@ -1,3 +1,4 @@
+import { LockKeyhole, Smartphone } from 'lucide-react'
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { Alert } from '@/components/ui/Alert'
 import { Button } from '@/components/ui/Button'
@@ -55,7 +56,7 @@ export default function LoginPage() {
   }
 
   return (
-    <Section title="Sign in" description="Use your registered mobile number to continue.">
+    <Section title="Welcome back" description="Sign in with your registered mobile number to continue.">
       <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
         {failure && (
           <Alert kind="error" title="Could not sign in">
@@ -64,6 +65,7 @@ export default function LoginPage() {
         )}
         <TextField
           label="Mobile number"
+          leading={<Smartphone className="size-4" />}
           name="mobile"
           type="tel"
           inputMode="numeric"
@@ -79,6 +81,7 @@ export default function LoginPage() {
         />
         <PasswordField
           label="Password"
+          leading={<LockKeyhole className="size-4" />}
           name="password"
           autoComplete="current-password"
           placeholder="Enter your password"
@@ -94,7 +97,11 @@ export default function LoginPage() {
         <Button type="submit" fullWidth loading={pending} loadingText="Signing in…" disabled={!online}>
           Sign in
         </Button>
-        {!online && <p className="text-center text-sm font-medium text-error">You are offline. Connect to the internet to sign in.</p>}
+        {!online && (
+          <p className="text-center text-sm font-medium text-error">
+            You are offline. Connect to the internet to sign in.
+          </p>
+        )}
       </form>
     </Section>
   )

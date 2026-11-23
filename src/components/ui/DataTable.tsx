@@ -28,7 +28,19 @@ interface DataTableProps<T> {
 
 const SKELETON_ROWS = 5
 
-export function DataTable<T>({ columns, rows, rowKey, status, errorMessage, onRetry, emptyTitle, emptyDescription, sortBy, sortOrder, onSort }: DataTableProps<T>) {
+export function DataTable<T>({
+  columns,
+  rows,
+  rowKey,
+  status,
+  errorMessage,
+  onRetry,
+  emptyTitle,
+  emptyDescription,
+  sortBy,
+  sortOrder,
+  onSort,
+}: DataTableProps<T>) {
   const loadingFirst = status === 'loading' && rows.length === 0
   const refreshing = status === 'loading' && rows.length > 0
 
@@ -49,16 +61,27 @@ export function DataTable<T>({ columns, rows, rowKey, status, errorMessage, onRe
           </button>
         </Alert>
       )}
-      <div className={`overflow-x-auto sm:rounded-box sm:border sm:border-base-300 ${refreshing ? 'opacity-60' : ''}`} aria-busy={status === 'loading'}>
+      <div
+        className={`overflow-x-auto sm:rounded-box sm:border sm:border-base-300 sm:bg-base-100 sm:shadow-sm ${refreshing ? 'opacity-60' : ''}`}
+        aria-busy={status === 'loading'}
+      >
         <table className="table">
-          <thead className="bg-base-200 text-base-content">
+          <thead className="bg-primary/10 text-secondary">
             <tr>
               {columns.map((column) => {
                 const sorted = column.sortKey !== undefined && column.sortKey === sortBy
                 return (
-                  <th key={column.key} className={column.mobileHidden ? 'hidden sm:table-cell' : undefined} aria-sort={sorted ? (sortOrder === 'asc' ? 'ascending' : 'descending') : undefined}>
+                  <th
+                    key={column.key}
+                    className={column.mobileHidden ? 'hidden sm:table-cell' : undefined}
+                    aria-sort={sorted ? (sortOrder === 'asc' ? 'ascending' : 'descending') : undefined}
+                  >
                     {column.sortKey && onSort ? (
-                      <button type="button" className="flex items-center gap-1 font-semibold" onClick={() => onSort(column.sortKey as string)}>
+                      <button
+                        type="button"
+                        className="flex items-center gap-1 font-semibold"
+                        onClick={() => onSort(column.sortKey as string)}
+                      >
                         {column.header}
                         <span aria-hidden="true">{sorted ? (sortOrder === 'asc' ? '▲' : '▼') : '↕'}</span>
                       </button>
@@ -82,7 +105,7 @@ export function DataTable<T>({ columns, rows, rowKey, status, errorMessage, onRe
                   </tr>
                 ))
               : rows.map((row) => (
-                  <tr key={rowKey(row)}>
+                  <tr key={rowKey(row)} className="hover:bg-primary/5">
                     {columns.map((column) => (
                       <td key={column.key} className={column.mobileHidden ? 'hidden sm:table-cell' : undefined}>
                         {column.render(row)}

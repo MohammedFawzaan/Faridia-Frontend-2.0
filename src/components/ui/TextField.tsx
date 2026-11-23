@@ -4,10 +4,11 @@ export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElemen
   label: string
   error?: string
   hint?: string
+  leading?: ReactNode
   trailing?: ReactNode
 }
 
-export function TextField({ label, error, hint, trailing, className = '', ...rest }: TextFieldProps) {
+export function TextField({ label, error, hint, leading, trailing, className = '', ...rest }: TextFieldProps) {
   const id = useId()
   const messageId = `${id}-message`
   const hasMessage = Boolean(error || hint)
@@ -18,18 +19,29 @@ export function TextField({ label, error, hint, trailing, className = '', ...res
         {label}
         {rest.required && <span className="text-error"> *</span>}
       </label>
-      <div className="relative">
+      <div
+        className={`input w-full items-center gap-2 border-base-content/60 bg-base-100 ${error ? 'input-error border-error' : ''}`}
+      >
+        {leading && (
+          <span className="text-primary" aria-hidden="true">
+            {leading}
+          </span>
+        )}
         <input
           id={id}
-          className={`input w-full border-base-content/60 bg-base-100 ${error ? 'input-error border-error' : ''} ${trailing ? 'pr-12' : ''} ${className}`}
+          className={`grow ${className}`}
           aria-invalid={Boolean(error)}
           aria-describedby={hasMessage ? messageId : undefined}
           {...rest}
         />
-        {trailing && <div className="absolute inset-y-0 right-1 flex items-center">{trailing}</div>}
+        {trailing && <div className="-mr-2 flex items-center">{trailing}</div>}
       </div>
       {hasMessage && (
-        <p id={messageId} role={error ? 'alert' : undefined} className={`text-sm ${error ? 'font-medium text-error' : ''}`}>
+        <p
+          id={messageId}
+          role={error ? 'alert' : undefined}
+          className={`text-sm ${error ? 'font-medium text-error' : ''}`}
+        >
           {error ?? hint}
         </p>
       )}

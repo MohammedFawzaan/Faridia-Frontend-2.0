@@ -57,7 +57,10 @@ export default function ChangePasswordPage() {
   }
 
   return (
-    <Section title="Set a new password" description="Choose a password you will remember. It protects patient information.">
+    <Section
+      title="Set a new password"
+      description="Choose a password you will remember. It protects patient information."
+    >
       <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
         {forced && (
           <Alert kind="info" title="Password change required">
@@ -104,7 +107,11 @@ export default function ChangePasswordPage() {
         <Button type="submit" fullWidth loading={pending} loadingText="Saving…" disabled={!online}>
           Save new password
         </Button>
-        {!online && <p className="text-center text-sm font-medium text-error">You are offline. Connect to the internet to save.</p>}
+        {!online && (
+          <p className="text-center text-sm font-medium text-error">
+            You are offline. Connect to the internet to save.
+          </p>
+        )}
         <Button variant="ghost" fullWidth onClick={forced ? signOut : () => navigate('/')} disabled={pending}>
           {forced ? 'Sign out' : 'Cancel'}
         </Button>

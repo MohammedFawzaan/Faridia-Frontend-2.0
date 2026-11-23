@@ -37,5 +37,10 @@ export const responseData = <T>(response: { data: ApiSuccess<T> }): T => respons
 
 export const responsePage = <T>(response: { data: ApiSuccess<T[]> }): Page<T> => ({
   items: response.data.data,
-  meta: response.data.meta ?? { page: 1, limit: response.data.data.length, total: response.data.data.length, totalPages: 1 },
+  meta: response.data.meta ?? {
+    page: 1,
+    limit: response.data.data.length,
+    total: response.data.data.length,
+    totalPages: 1,
+  },
 })

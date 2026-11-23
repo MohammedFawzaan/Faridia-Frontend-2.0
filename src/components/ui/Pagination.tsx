@@ -1,5 +1,5 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import type { PageMeta } from '@/types/api'
-import { Button } from './Button'
 
 interface PaginationProps {
   meta: PageMeta
@@ -16,16 +16,28 @@ export function Pagination({ meta, disabled = false, onPageChange }: PaginationP
       <p className="text-sm font-medium">
         Showing {first}–{last} of {meta.total}
       </p>
-      <div className="flex items-center gap-2">
-        <Button variant="outline" onClick={() => onPageChange(meta.page - 1)} disabled={disabled || meta.page <= 1}>
+      <div className="join">
+        <button
+          type="button"
+          className="btn btn-outline btn-primary join-item btn-sm"
+          onClick={() => onPageChange(meta.page - 1)}
+          disabled={disabled || meta.page <= 1}
+        >
+          <ChevronLeft className="size-4" aria-hidden="true" />
           Previous
-        </Button>
-        <span className="text-sm font-semibold">
+        </button>
+        <span className="btn btn-primary join-item btn-sm pointer-events-none">
           Page {meta.page} of {meta.totalPages}
         </span>
-        <Button variant="outline" onClick={() => onPageChange(meta.page + 1)} disabled={disabled || meta.page >= meta.totalPages}>
+        <button
+          type="button"
+          className="btn btn-outline btn-primary join-item btn-sm"
+          onClick={() => onPageChange(meta.page + 1)}
+          disabled={disabled || meta.page >= meta.totalPages}
+        >
           Next
-        </Button>
+          <ChevronRight className="size-4" aria-hidden="true" />
+        </button>
       </div>
     </nav>
   )

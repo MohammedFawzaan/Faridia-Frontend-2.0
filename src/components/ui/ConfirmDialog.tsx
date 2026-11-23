@@ -14,7 +14,15 @@ interface ConfirmDialogProps {
   onClose: () => void
 }
 
-export function ConfirmDialog({ title, message, confirmLabel, pendingLabel, tone = 'primary', onConfirm, onClose }: ConfirmDialogProps) {
+export function ConfirmDialog({
+  title,
+  message,
+  confirmLabel,
+  pendingLabel,
+  tone = 'primary',
+  onConfirm,
+  onClose,
+}: ConfirmDialogProps) {
   const [pending, setPending] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 

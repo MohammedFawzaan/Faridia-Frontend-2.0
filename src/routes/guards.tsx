@@ -43,7 +43,13 @@ export function RequireAuth() {
   }
 
   if (status === 'anonymous') {
-    return <Navigate to="/login" replace state={{ from: `${location.pathname}${location.search}` } satisfies RedirectState} />
+    return (
+      <Navigate
+        to="/login"
+        replace
+        state={{ from: `${location.pathname}${location.search}` } satisfies RedirectState}
+      />
+    )
   }
   return <Outlet />
 }

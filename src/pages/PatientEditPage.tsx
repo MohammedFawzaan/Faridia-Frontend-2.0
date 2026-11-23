@@ -1,6 +1,8 @@
+import { Pencil } from 'lucide-react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { PatientForm } from '@/components/patients/PatientForm'
 import { Spinner } from '@/components/ui/Loaders'
+import { PageHeader } from '@/components/ui/PageHeader'
 import { ErrorState } from '@/components/ui/StateMessage'
 import { useResource } from '@/hooks/useResource'
 import { patientsService } from '@/services/patientsService'
@@ -33,12 +35,7 @@ export default function PatientEditPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div>
-        <h1 className="text-3xl text-secondary">Edit patient</h1>
-        <p className="mt-1 font-medium">
-          {patient.name} ({patient.patientId})
-        </p>
-      </div>
+      <PageHeader icon={Pencil} title="Edit patient" description={`${patient.name} (${patient.patientId})`} />
       <PatientForm
         patient={patient}
         onCancel={() => navigate(`/patients/${patientId}`)}

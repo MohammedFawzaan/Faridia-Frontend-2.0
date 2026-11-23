@@ -4,13 +4,21 @@ const today = () => new Date().toISOString().slice(0, 10)
 
 export const patientSchema = z.object({
   name: z.string().trim().min(2, 'Name must be at least 2 characters').max(100, 'Name must be at most 100 characters'),
-  fatherName: z.string().trim().min(2, "Father's name must be at least 2 characters").max(100, "Father's name must be at most 100 characters"),
+  fatherName: z
+    .string()
+    .trim()
+    .min(2, "Father's name must be at least 2 characters")
+    .max(100, "Father's name must be at most 100 characters"),
   dob: z
     .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, 'Enter the date of birth')
     .refine((value) => value <= today(), 'Date of birth cannot be in the future'),
   gender: z.enum(['male', 'female', 'other'], { error: 'Choose a gender' }),
-  address: z.string().trim().min(3, 'Address must be at least 3 characters').max(500, 'Address must be at most 500 characters'),
+  address: z
+    .string()
+    .trim()
+    .min(3, 'Address must be at least 3 characters')
+    .max(500, 'Address must be at most 500 characters'),
   city: z.string().trim().min(2, 'City must be at least 2 characters').max(40, 'City must be at most 40 characters'),
   pinCode: z.string().regex(/^\d{6}$/, 'Pin code must be exactly 6 digits'),
   mobile: z.string().regex(/^\d{10}$/, 'Enter a valid 10-digit mobile number'),

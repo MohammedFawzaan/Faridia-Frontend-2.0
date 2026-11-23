@@ -23,7 +23,14 @@ export const usePagedQuery = <T, Q>(fetcher: (query: Q) => Promise<Page<T>>, que
         if (!cancelled) setSettled({ query, reloadCount, items: page.items, meta: page.meta, error: null })
       })
       .catch((error: unknown) => {
-        if (!cancelled) setSettled((current) => ({ query, reloadCount, items: current?.items ?? [], meta: current?.meta ?? null, error: toApiError(error) }))
+        if (!cancelled)
+          setSettled((current) => ({
+            query,
+            reloadCount,
+            items: current?.items ?? [],
+            meta: current?.meta ?? null,
+            error: toApiError(error),
+          }))
       })
     return () => {
       cancelled = true
@@ -35,5 +42,11 @@ export const usePagedQuery = <T, Q>(fetcher: (query: Q) => Promise<Page<T>>, que
   const upToDate = settled !== null && settled.query === query && settled.reloadCount === reloadCount
   const status: QueryStatus = !upToDate ? 'loading' : settled.error ? 'error' : 'success'
 
-  return { items: settled?.items ?? [], meta: settled?.meta ?? null, status, error: upToDate ? settled.error : null, reload }
+  return {
+    items: settled?.items ?? [],
+    meta: settled?.meta ?? null,
+    status,
+    error: upToDate ? settled.error : null,
+    reload,
+  }
 }

@@ -21,7 +21,12 @@ function ToastItem({ toast }: { toast: Toast }) {
   return (
     <div role={toast.kind === 'error' ? 'alert' : 'status'} className={`alert ${KIND_CLASS[toast.kind]} shadow-lg`}>
       <span className="font-medium">{toast.message}</span>
-      <button type="button" className="btn btn-ghost btn-xs" onClick={() => dismiss(toast.id)} aria-label="Dismiss message">
+      <button
+        type="button"
+        className="btn btn-ghost btn-xs"
+        onClick={() => dismiss(toast.id)}
+        aria-label="Dismiss message"
+      >
         Close
       </button>
     </div>

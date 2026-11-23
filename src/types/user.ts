@@ -31,6 +31,7 @@ export interface CreateUserPayload {
   mobile: string
   auth: string
   role: UserRole
+  doctorId?: number | null
 }
 
 export type UpdateUserPayload = Partial<Omit<CreateUserPayload, 'auth'>>

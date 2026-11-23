@@ -57,11 +57,13 @@ export function PatientForm({ patient, initialMobile = '', onSaved, onCancel }: 
     setFailure(null)
   }
 
-  const handleText = (field: keyof FormValues, digitsOnly = false) => (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const value = digitsOnly ? event.target.value.replace(/\D/g, '') : event.target.value
-    setValues((current) => ({ ...current, [field]: value }))
-    clearError(field)
-  }
+  const handleText =
+    (field: keyof FormValues, digitsOnly = false) =>
+    (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+      const value = digitsOnly ? event.target.value.replace(/\D/g, '') : event.target.value
+      setValues((current) => ({ ...current, [field]: value }))
+      clearError(field)
+    }
 
   const handleCheckbox = (field: 'isWhatsapp' | 'isFree') => (event: ChangeEvent<HTMLInputElement>) => {
     setValues((current) => ({ ...current, [field]: event.target.checked }))
@@ -78,7 +80,9 @@ export function PatientForm({ patient, initialMobile = '', onSaved, onCancel }: 
     const payload = { ...rest, whatsappNumber: whatsappNumber || null, lgNumber: lgNumber || null }
     setPending(true)
     try {
-      onSaved(patient ? await patientsService.update(patient.patientId, payload) : await patientsService.create(payload))
+      onSaved(
+        patient ? await patientsService.update(patient.patientId, payload) : await patientsService.create(payload),
+      )
     } catch (error) {
       const apiError = toApiError(error)
       const fieldErrors = { ...apiError.fieldErrors }
@@ -97,10 +101,47 @@ export function PatientForm({ patient, initialMobile = '', onSaved, onCancel }: 
         </Alert>
       )}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <TextField label="Full name" name="name" value={values.name} onChange={handleText('name')} error={errors.name} disabled={pending} required autoFocus />
-        <TextField label="Father's name" name="fatherName" value={values.fatherName} onChange={handleText('fatherName')} error={errors.fatherName} disabled={pending} required />
-        <TextField label="Date of birth" name="dob" type="date" max={today()} value={values.dob} onChange={handleText('dob')} error={errors.dob} disabled={pending} required />
-        <SelectField label="Gender" name="gender" placeholder="Choose a gender" options={GENDER_OPTIONS} value={values.gender} onChange={handleText('gender')} error={errors.gender} disabled={pending} required />
+        <TextField
+          label="Full name"
+          name="name"
+          value={values.name}
+          onChange={handleText('name')}
+          error={errors.name}
+          disabled={pending}
+          required
+          autoFocus
+        />
+        <TextField
+          label="Father's name"
+          name="fatherName"
+          value={values.fatherName}
+          onChange={handleText('fatherName')}
+          error={errors.fatherName}
+          disabled={pending}
+          required
+        />
+        <TextField
+          label="Date of birth"
+          name="dob"
+          type="date"
+          max={today()}
+          value={values.dob}
+          onChange={handleText('dob')}
+          error={errors.dob}
+          disabled={pending}
+          required
+        />
+        <SelectField
+          label="Gender"
+          name="gender"
+          placeholder="Choose a gender"
+          options={GENDER_OPTIONS}
+          value={values.gender}
+          onChange={handleText('gender')}
+          error={errors.gender}
+          disabled={pending}
+          required
+        />
         <TextField
           label="Mobile number"
           name="mobile"
@@ -114,11 +155,35 @@ export function PatientForm({ patient, initialMobile = '', onSaved, onCancel }: 
           disabled={pending}
           required
         />
-        <TextField label="LG number" name="lgNumber" maxLength={15} value={values.lgNumber} onChange={handleText('lgNumber')} error={errors.lgNumber} disabled={pending} />
+        <TextField
+          label="LG number"
+          name="lgNumber"
+          maxLength={15}
+          value={values.lgNumber}
+          onChange={handleText('lgNumber')}
+          error={errors.lgNumber}
+          disabled={pending}
+        />
       </div>
-      <TextAreaField label="Address" name="address" value={values.address} onChange={handleText('address')} error={errors.address} disabled={pending} required />
+      <TextAreaField
+        label="Address"
+        name="address"
+        value={values.address}
+        onChange={handleText('address')}
+        error={errors.address}
+        disabled={pending}
+        required
+      />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <TextField label="City" name="city" value={values.city} onChange={handleText('city')} error={errors.city} disabled={pending} required />
+        <TextField
+          label="City"
+          name="city"
+          value={values.city}
+          onChange={handleText('city')}
+          error={errors.city}
+          disabled={pending}
+          required
+        />
         <TextField
           label="Pin code"
           name="pinCode"
@@ -143,8 +208,18 @@ export function PatientForm({ patient, initialMobile = '', onSaved, onCancel }: 
         />
       </div>
       <div className="flex flex-wrap gap-6">
-        <CheckboxField label="Mobile number is on WhatsApp" checked={values.isWhatsapp} onChange={handleCheckbox('isWhatsapp')} disabled={pending} />
-        <CheckboxField label="Free patient" checked={values.isFree} onChange={handleCheckbox('isFree')} disabled={pending} />
+        <CheckboxField
+          label="Mobile number is on WhatsApp"
+          checked={values.isWhatsapp}
+          onChange={handleCheckbox('isWhatsapp')}
+          disabled={pending}
+        />
+        <CheckboxField
+          label="Free patient"
+          checked={values.isFree}
+          onChange={handleCheckbox('isFree')}
+          disabled={pending}
+        />
       </div>
       <div className="flex flex-wrap justify-end gap-2">
         <Button variant="ghost" onClick={onCancel} disabled={pending}>
@@ -154,7 +229,9 @@ export function PatientForm({ patient, initialMobile = '', onSaved, onCancel }: 
           {patient ? 'Save changes' : 'Register patient'}
         </Button>
       </div>
-      {!online && <p className="text-center text-sm font-medium text-error">You are offline. Connect to the internet to save.</p>}
+      {!online && (
+        <p className="text-center text-sm font-medium text-error">You are offline. Connect to the internet to save.</p>
+      )}
     </form>
   )
 }

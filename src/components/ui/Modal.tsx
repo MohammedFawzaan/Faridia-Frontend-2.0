@@ -26,7 +26,13 @@ export function Modal({ title, onClose, children, busy = false }: ModalProps) {
         </h3>
         {children}
       </div>
-      <button type="button" className="modal-backdrop" aria-label="Close dialog" onClick={busy ? undefined : onClose} tabIndex={-1} />
+      <button
+        type="button"
+        className="modal-backdrop"
+        aria-label="Close dialog"
+        onClick={busy ? undefined : onClose}
+        tabIndex={-1}
+      />
     </div>
   )
 }

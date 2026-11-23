@@ -9,7 +9,13 @@ export class ApiError extends Error {
   readonly code: string | null
   readonly fieldErrors: FieldErrors
 
-  constructor(kind: ApiErrorKind, message: string, statusCode: number | null = null, code: string | null = null, fieldErrors: FieldErrors = {}) {
+  constructor(
+    kind: ApiErrorKind,
+    message: string,
+    statusCode: number | null = null,
+    code: string | null = null,
+    fieldErrors: FieldErrors = {},
+  ) {
     super(message)
     this.name = 'ApiError'
     this.kind = kind
@@ -40,7 +46,13 @@ export const toApiError = (error: unknown): ApiError => {
     for (const item of data?.errors ?? []) {
       fieldErrors[item.field] = item.messages[0]
     }
-    return new ApiError(kindFor(status), data?.message ?? 'Something went wrong. Please try again.', status, data?.code ?? null, fieldErrors)
+    return new ApiError(
+      kindFor(status),
+      data?.message ?? 'Something went wrong. Please try again.',
+      status,
+      data?.code ?? null,
+      fieldErrors,
+    )
   }
   return new ApiError('unknown', 'Something went wrong. Please try again.')
 }

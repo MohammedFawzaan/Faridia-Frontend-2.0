@@ -1,8 +1,11 @@
+import { Phone, UserPlus } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { PatientAvatar } from '@/components/patients/PatientAvatar'
 import { PatientForm } from '@/components/patients/PatientForm'
 import { Alert } from '@/components/ui/Alert'
 import { Button } from '@/components/ui/Button'
+import { PageHeader } from '@/components/ui/PageHeader'
 import { TextField } from '@/components/ui/TextField'
 import { useOnlineStatus } from '@/hooks/useOnlineStatus'
 import { mobileSchema } from '@/schemas/patient'
@@ -50,14 +53,16 @@ export default function PatientNewPage() {
 
   return (
     <div className="flex max-w-3xl flex-col gap-4">
-      <div>
-        <h1 className="text-3xl text-secondary">Add patient</h1>
-        <p className="mt-1 font-medium">Check the mobile number first to avoid registering the same patient twice.</p>
-      </div>
+      <PageHeader
+        icon={UserPlus}
+        title="Add patient"
+        description="Check the mobile number first to avoid registering the same patient twice."
+      />
 
       <form className="flex flex-col gap-3 sm:flex-row sm:items-end" onSubmit={handleCheck} noValidate>
         <div className="sm:w-72">
           <TextField
+            leading={<Phone className="size-4" />}
             label="Mobile number"
             type="tel"
             inputMode="numeric"
@@ -78,7 +83,9 @@ export default function PatientNewPage() {
           Check number
         </Button>
       </form>
-      {!online && <p className="text-sm font-medium text-error">You are offline. Connect to the internet to check the number.</p>}
+      {!online && (
+        <p className="text-sm font-medium text-error">You are offline. Connect to the internet to check the number.</p>
+      )}
       {failure && (
         <Alert kind="error" title="Could not check the number">
           {failure}
@@ -87,20 +94,26 @@ export default function PatientNewPage() {
 
       {matches && matches.length > 0 && (
         <section className="flex flex-col gap-3">
-          <Alert kind="warning" title={`${matches.length} existing ${matches.length === 1 ? 'patient uses' : 'patients use'} this number`}>
+          <Alert
+            kind="warning"
+            title={`${matches.length} existing ${matches.length === 1 ? 'patient uses' : 'patients use'} this number`}
+          >
             Open an existing patient if it is the same person.
           </Alert>
           <ul className="divide-y divide-base-300 border-y border-base-300">
             {matches.map((patient) => (
               <li key={patient.patientId} className="flex flex-wrap items-center justify-between gap-2 py-3">
-                <div>
-                  <p className="font-semibold">
-                    {patient.name} <span className="font-normal">({patient.patientId})</span>
-                  </p>
-                  <p className="text-sm">
-                    {formatAge(patient)} · {GENDER_LABELS[patient.gender]}
-                    {patient.city ? ` · ${patient.city}` : ''}
-                  </p>
+                <div className="flex items-center gap-3">
+                  <PatientAvatar patient={patient} size="sm" />
+                  <div>
+                    <p className="font-semibold">
+                      {patient.name} <span className="font-normal">({patient.patientId})</span>
+                    </p>
+                    <p className="text-sm">
+                      {formatAge(patient)} · {GENDER_LABELS[patient.gender]}
+                      {patient.city ? ` · ${patient.city}` : ''}
+                    </p>
+                  </div>
                 </div>
                 <div className="flex gap-1">
                   <Link to={`/patients/${patient.patientId}`} className="btn btn-outline btn-primary btn-sm">
@@ -123,7 +136,9 @@ export default function PatientNewPage() {
         </section>
       )}
 
-      {matches && matches.length === 0 && <Alert kind="success">No patient uses this number. Fill in the details to register.</Alert>}
+      {matches && matches.length === 0 && (
+        <Alert kind="success">No patient uses this number. Fill in the details to register.</Alert>
+      )}
 
       {registering && (
         <section className="flex flex-col gap-3 border-t border-base-300 pt-4">

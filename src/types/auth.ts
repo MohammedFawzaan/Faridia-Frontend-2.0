@@ -15,6 +15,7 @@ export type UserRole =
   | 'lab'
   | 'labadmin'
   | 'labray'
+  | 'screening'
 
 export interface UserProfile {
   id: number

@@ -3,6 +3,12 @@ import type { SortOrder } from './api'
 export type Gender = 'male' | 'female' | 'other'
 export type AgeType = 'year' | 'month' | 'day'
 
+export interface TodayQueue {
+  sl: number
+  status: 'waiting' | 'done'
+  doctorName: string
+}
+
 export interface Patient {
   patientId: string
   name: string
@@ -22,6 +28,7 @@ export interface Patient {
   photoPath: string | null
   createdBy: string
   createdAt: string
+  todayQueue: TodayQueue | null
 }
 
 export type PatientSortField = 'createdAt' | 'name' | 'patientId'
